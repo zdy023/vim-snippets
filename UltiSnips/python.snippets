@@ -6,8 +6,17 @@ priority -50
 
 #! header
 snippet #! "Shebang header for python scripts" b
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
+#!/usr/bin/python
+$0
+endsnippet
+
+snippet #!2 "Shebang header for python scripts" b
+#!/usr/bin/python2
+$0
+endsnippet
+
+snippet #!3 "Shebang header for python scripts" b
+#!/usr/bin/python3
 $0
 endsnippet
 
@@ -16,16 +25,16 @@ if __name__ == `!p snip.rv = get_quoting_style(snip)`__main__`!p snip.rv = get_q
 	${1:${VISUAL:main()}}
 endsnippet
 
-snippet with "with" b
-with ${1:expr}`!p snip.rv = " as " if t[2] else ""`${2:var}:
-	${3:${VISUAL:pass}}
-$0
-endsnippet
+#snippet with "with" b
+#with ${1:expr}`!p snip.rv = " as " if t[2] else ""`${2:var}:
+	#${3:${VISUAL:pass}}
+#$0
+#endsnippet
 
-snippet for "for loop" b
-for ${1:item} in ${2:iterable}:
-	${3:${VISUAL:pass}}
-endsnippet
+#snippet for "for loop" b
+#for ${1:item} in ${2:iterable}:
+	#${3:${VISUAL:pass}}
+#endsnippet
 
 ##########
 # COMMON #
@@ -261,55 +270,55 @@ endglobal
 # Class & Special Method Name Snippets #
 ########################################
 
-snippet class "class with docstrings" b
-class ${1:MyClass}(${2:object}):
-
-	`!p snip.rv = triple_quotes(snip)`${3:Docstring for $1. }`!p snip.rv = triple_quotes(snip)`
-
-	def __init__(self$4):
-		`!p snip.rv = triple_quotes(snip)`${5:TODO: to be defined1.}`!p
-snip.rv = ""
-snip >> 2
-
-args = get_args(t[4])
-
-write_docstring_args(args, snip)
-if args:
-	snip.rv += '\n' + snip.mkline('', indent='')
-	snip += '{0}'.format(triple_quotes(snip))
-
-write_init_body(args, t[2], snip)
-`
-		$0
-endsnippet
-
-
-snippet slotclass "class with slots and docstrings" b
-class ${1:MyClass}(${2:object}):
-
-	`!p snip.rv = triple_quotes(snip)`${3:Docstring for $1. }`!p snip.rv = triple_quotes(snip)`
-`!p
-snip >> 1
-args = get_args(t[4])
-write_slots_args(args, snip)
-`
-
-	def __init__(self$4):
-		`!p snip.rv = triple_quotes(snip)`${5:TODO: to be defined.}`!p
-snip.rv = ""
-snip >> 2
-
-args = get_args(t[4])
-
-write_docstring_args(args, snip)
-if args:
-	snip.rv += '\n' + snip.mkline('', indent='')
-	snip += triple_quotes(snip)
-
-write_init_body(args, t[2], snip)
-`
-		$0
-endsnippet
+#snippet class "class with docstrings" b
+#class ${1:MyClass}(${2:object}):
+#
+	#`!p snip.rv = triple_quotes(snip)`${3:Docstring for $1. }`!p snip.rv = triple_quotes(snip)`
+#
+	#def __init__(self$4):
+		#`!p snip.rv = triple_quotes(snip)`${5:TODO: to be defined1.}`!p
+#snip.rv = ""
+#snip >> 2
+#
+#args = get_args(t[4])
+#
+#write_docstring_args(args, snip)
+#if args:
+	#snip.rv += '\n' + snip.mkline('', indent='')
+	#snip += '{0}'.format(triple_quotes(snip))
+#
+#write_init_body(args, t[2], snip)
+#`
+		#$0
+#endsnippet
+#
+#
+#snippet slotclass "class with slots and docstrings" b
+#class ${1:MyClass}(${2:object}):
+#
+	#`!p snip.rv = triple_quotes(snip)`${3:Docstring for $1. }`!p snip.rv = triple_quotes(snip)`
+#`!p
+#snip >> 1
+#args = get_args(t[4])
+#write_slots_args(args, snip)
+#`
+#
+	#def __init__(self$4):
+		#`!p snip.rv = triple_quotes(snip)`${5:TODO: to be defined.}`!p
+#snip.rv = ""
+#snip >> 2
+#
+#args = get_args(t[4])
+#
+#write_docstring_args(args, snip)
+#if args:
+	#snip.rv += '\n' + snip.mkline('', indent='')
+	#snip += triple_quotes(snip)
+#
+#write_init_body(args, t[2], snip)
+#`
+		#$0
+#endsnippet
 
 
 snippet contain "methods for emulating a container type" b
@@ -493,108 +502,108 @@ def __coerce__(self, other):
 	${25:pass}
 endsnippet
 
-snippet deff
-def ${1:fname}(`!p snip.rv = vim.eval('indent(".") ? "self" : ""')`$2):
-	$0
-endsnippet
-
-snippet def "function with docstrings" b
-def ${1:function}(`!p
-if snip.indent:
-	snip.rv = 'self' + (", " if len(t[2]) else "")`${2:arg1}):
-	`!p snip.rv = triple_quotes(snip)`${4:TODO: Docstring for $1.}`!p
-write_function_docstring(t, snip) `
-	${5:${VISUAL:pass}}
-endsnippet
-
-
-snippet defc "class method with docstrings" b
-@classmethod
-def ${1:function}(`!p
-if snip.indent:
-	snip.rv = 'cls' + (", " if len(t[2]) else "")`${2:arg1}):
-	`!p snip.rv = triple_quotes(snip)`${4:TODO: Docstring for $1.}`!p
-write_function_docstring(t, snip) `
-	${5:${VISUAL:pass}}
-endsnippet
-
-
-snippet defs "static method with docstrings" b
-@staticmethod
-def ${1:function}(${2:arg1}):
-	`!p snip.rv = triple_quotes(snip)`${4:TODO: Docstring for $1.}`!p
-write_function_docstring(t, snip) `
-	${5:${VISUAL:pass}}
-endsnippet
-
-
-# doesn't expand when there is a word in front
-snippet /(^|(?<=\W))\./ "self." r
-self.
-endsnippet
-
-snippet from "from module import name" b
-from ${1:module} import ${2:Stuff}
-endsnippet
-
-
-##############
-# PROPERTIES #
-##############
-snippet roprop "Read Only Property" b
-@property
-def ${1:name}(self):
-	${2:return self._$1}$0
-endsnippet
-
-snippet rwprop "Read write property" b
-def ${1:name}():
-	`!p snip.rv = triple_quotes(snip) if t[2] else ''
-`${2:TODO: Docstring for $1.}`!p
-if t[2]:
-	snip >> 1
-
-	style = get_style(snip)
-	snip.rv += '\n' + snip.mkline('', indent='')
-	snip += format_return(style)
-	snip.rv += '\n' + snip.mkline('', indent='')
-	snip += triple_quotes(snip)
-else:
-	snip.rv = ""`
-	def fget(self):
-		return self._$1$0
-
-	def fset(self, value):
-		self._$1 = value
-	return locals()
-
-$1 = property(**$1(), doc=$1.__doc__)
-endsnippet
-
-
-####################
-# If / Else / Elif #
-####################
-snippet if "If" b
-if ${1:condition}:
-	${2:${VISUAL:pass}}
-endsnippet
-
-snippet ife "If / Else" b
-if ${1:condition}:
-	${2:${VISUAL:pass}}
-else:
-	${3:pass}
-endsnippet
-
-snippet ifee "If / Elif / Else" b
-if ${1:condition}:
-	${2:${VISUAL:pass}}
-elif ${3:condition}:
-	${4:pass}
-else:
-	${5:pass}
-endsnippet
+#snippet deff
+#def ${1:fname}(`!p snip.rv = vim.eval('indent(".") ? "self" : ""')`$2):
+	#$0
+#endsnippet
+#
+#snippet def "function with docstrings" b
+#def ${1:function}(`!p
+#if snip.indent:
+	#snip.rv = 'self' + (", " if len(t[2]) else "")`${2:arg1}):
+	#`!p snip.rv = triple_quotes(snip)`${4:TODO: Docstring for $1.}`!p
+#write_function_docstring(t, snip) `
+	#${5:${VISUAL:pass}}
+#endsnippet
+#
+#
+#snippet defc "class method with docstrings" b
+#@classmethod
+#def ${1:function}(`!p
+#if snip.indent:
+	#snip.rv = 'cls' + (", " if len(t[2]) else "")`${2:arg1}):
+	#`!p snip.rv = triple_quotes(snip)`${4:TODO: Docstring for $1.}`!p
+#write_function_docstring(t, snip) `
+	#${5:${VISUAL:pass}}
+#endsnippet
+#
+#
+#snippet defs "static method with docstrings" b
+#@staticmethod
+#def ${1:function}(${2:arg1}):
+	#`!p snip.rv = triple_quotes(snip)`${4:TODO: Docstring for $1.}`!p
+#write_function_docstring(t, snip) `
+	#${5:${VISUAL:pass}}
+#endsnippet
+#
+#
+## doesn't expand when there is a word in front
+#snippet /(^|(?<=\W))\./ "self." r
+#self.
+#endsnippet
+#
+#snippet from "from module import name" b
+#from ${1:module} import ${2:Stuff}
+#endsnippet
+#
+#
+###############
+## PROPERTIES #
+###############
+#snippet roprop "Read Only Property" b
+#@property
+#def ${1:name}(self):
+	#${2:return self._$1}$0
+#endsnippet
+#
+#snippet rwprop "Read write property" b
+#def ${1:name}():
+	#`!p snip.rv = triple_quotes(snip) if t[2] else ''
+#`${2:TODO: Docstring for $1.}`!p
+#if t[2]:
+	#snip >> 1
+#
+	#style = get_style(snip)
+	#snip.rv += '\n' + snip.mkline('', indent='')
+	#snip += format_return(style)
+	#snip.rv += '\n' + snip.mkline('', indent='')
+	#snip += triple_quotes(snip)
+#else:
+	#snip.rv = ""`
+	#def fget(self):
+		#return self._$1$0
+#
+	#def fset(self, value):
+		#self._$1 = value
+	#return locals()
+#
+#$1 = property(**$1(), doc=$1.__doc__)
+#endsnippet
+#
+#
+#####################
+## If / Else / Elif #
+#####################
+#snippet if "If" b
+#if ${1:condition}:
+	#${2:${VISUAL:pass}}
+#endsnippet
+#
+#snippet ife "If / Else" b
+#if ${1:condition}:
+	#${2:${VISUAL:pass}}
+#else:
+	#${3:pass}
+#endsnippet
+#
+#snippet ifee "If / Elif / Else" b
+#if ${1:condition}:
+	#${2:${VISUAL:pass}}
+#elif ${3:condition}:
+	#${4:pass}
+#else:
+	#${5:pass}
+#endsnippet
 
 
 ##########################
@@ -641,79 +650,79 @@ endsnippet
 # Assertions & Tests #
 ######################
 
-snippet ae "Assert equal" b
-self.assertEqual(${1:${VISUAL:first}}, ${2:second})
-endsnippet
-
-snippet at "Assert True" b
-self.assertTrue(${1:${VISUAL:expression}})
-endsnippet
-
-snippet af "Assert False" b
-self.assertFalse(${1:${VISUAL:expression}})
-endsnippet
-
-snippet aae "Assert almost equal" b
-self.assertAlmostEqual(${1:${VISUAL:first}}, ${2:second})
-endsnippet
-
-snippet ar "Assert raises" b
-self.assertRaises(${1:exception}, ${2:${VISUAL:func}}${3/.+/, /}${3:arguments})
-endsnippet
-
-snippet an "Assert is None" b
-self.assertIsNone(${1:${VISUAL:expression}})
-endsnippet
-
-snippet ann "Assert is not None" b
-self.assertIsNotNone(${1:${VISUAL:expression}})
-endsnippet
-
-snippet testcase "pyunit testcase" b
-class Test${1:Class}(${2:unittest.TestCase}):
-
-	`!p snip.rv = triple_quotes(snip)`${3:Test case docstring.}`!p snip.rv = triple_quotes(snip)`
-
-	def setUp(self):
-		${4:pass}
-
-	def tearDown(self):
-		${5:pass}
-
-	def test_${6:name}(self):
-		${7:${VISUAL:pass}}
-endsnippet
-
-snippet " "triple quoted string (double quotes)" b
-"""
-${1:${VISUAL:doc}}
-`!p triple_quotes_handle_trailing(snip, '"')`
-endsnippet
-
-snippet ' "triple quoted string (single quotes)" b
-'''
-${1:${VISUAL:doc}}
-`!p triple_quotes_handle_trailing(snip, "'")`
-endsnippet
-
-snippet doc "doc block (triple quotes)"
-`!p snip.rv = triple_quotes(snip)`
-${1:${VISUAL:doc}}
-`!p snip.rv = triple_quotes(snip)`
-endsnippet
-
-snippet pmdoc "pocoo style module doc string" b
-# -*- coding: utf-8 -*-
-"""
-	`!p snip.rv = get_dir_and_file_name(snip)`
-	`!p snip.rv = '~' * len(get_dir_and_file_name(snip))`
-
-	${1:DESCRIPTION}
-
-	:copyright: (c) `date +%Y` by ${2:YOUR_NAME}.
-	:license: ${3:LICENSE_NAME}, see LICENSE for more details.
-"""
-$0
-endsnippet
-
-# vim:ft=snippets:
+#snippet ae "Assert equal" b
+#self.assertEqual(${1:${VISUAL:first}}, ${2:second})
+#endsnippet
+#
+#snippet at "Assert True" b
+#self.assertTrue(${1:${VISUAL:expression}})
+#endsnippet
+#
+#snippet af "Assert False" b
+#self.assertFalse(${1:${VISUAL:expression}})
+#endsnippet
+#
+#snippet aae "Assert almost equal" b
+#self.assertAlmostEqual(${1:${VISUAL:first}}, ${2:second})
+#endsnippet
+#
+#snippet ar "Assert raises" b
+#self.assertRaises(${1:exception}, ${2:${VISUAL:func}}${3/.+/, /}${3:arguments})
+#endsnippet
+#
+#snippet an "Assert is None" b
+#self.assertIsNone(${1:${VISUAL:expression}})
+#endsnippet
+#
+#snippet ann "Assert is not None" b
+#self.assertIsNotNone(${1:${VISUAL:expression}})
+#endsnippet
+#
+#snippet testcase "pyunit testcase" b
+#class Test${1:Class}(${2:unittest.TestCase}):
+#
+	#`!p snip.rv = triple_quotes(snip)`${3:Test case docstring.}`!p snip.rv = triple_quotes(snip)`
+#
+	#def setUp(self):
+		#${4:pass}
+#
+	#def tearDown(self):
+		#${5:pass}
+#
+	#def test_${6:name}(self):
+		#${7:${VISUAL:pass}}
+#endsnippet
+#
+#snippet " "triple quoted string (double quotes)" b
+#"""
+#${1:${VISUAL:doc}}
+#`!p triple_quotes_handle_trailing(snip, '"')`
+#endsnippet
+#
+#snippet ' "triple quoted string (single quotes)" b
+#'''
+#${1:${VISUAL:doc}}
+#`!p triple_quotes_handle_trailing(snip, "'")`
+#endsnippet
+#
+#snippet doc "doc block (triple quotes)"
+#`!p snip.rv = triple_quotes(snip)`
+#${1:${VISUAL:doc}}
+#`!p snip.rv = triple_quotes(snip)`
+#endsnippet
+#
+#snippet pmdoc "pocoo style module doc string" b
+## -*- coding: utf-8 -*-
+#"""
+	#`!p snip.rv = get_dir_and_file_name(snip)`
+	#`!p snip.rv = '~' * len(get_dir_and_file_name(snip))`
+#
+	#${1:DESCRIPTION}
+#
+	#:copyright: (c) `date +%Y` by ${2:YOUR_NAME}.
+	#:license: ${3:LICENSE_NAME}, see LICENSE for more details.
+#"""
+#$0
+#endsnippet
+#
+## vim:ft=snippets:
