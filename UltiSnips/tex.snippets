@@ -221,3 +221,32 @@ ${2:${VISUAL:code}}
 $0
 endsnippet
 # vim:ft=snippets:
+
+snippet titlepage "Title page" b
+\begin{titlepage}
+	\centering
+	\linespread{1.2}
+	\vspace*{1cm}
+	{\zihao{-0} \textbf{${1:MAIN_TITLE}}\par}
+	\vspace{0.5cm}
+	{\zihao{-1} \textbf{${2:SUB_TITLE}}\par}
+	\vfill
+	\begin{table}[!hb]
+		\LARGE
+		\centering
+		\begin{tabular}{rc}
+			${3:作者}： &	${4:David Chang}
+		\end{tabular}
+		\vspace{1cm}
+	\end{table}
+\end{titlepage}
+endsnippet
+
+snippet pageset "Margin setting" b
+\usepackage{geometry}
+\geometry{left=1.5cm, right=1.5cm, top=2.5cm, bottom=2cm}
+endsnippet
+
+snippet hyperref "Import hyperref" b
+\usepackage[colorlinks, linkcolor=black, anchorcolor=blue, citecolor=green]{hyperref}
+endsnippet
