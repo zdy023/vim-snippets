@@ -22,6 +22,21 @@ def create_table(snip):
     snip.expand_anon(anon_snippet_table)
 endglobal
 
+snippet markdeep "Markdeep"
+<meta charset="utf-8">
+
+<!-- Markdeep: -->
+<style class="fallback">body{visibility:hidden;white-space:pre;font-family:monospace}</style>
+<script>markdeepOptions={tocStyle:'${1:long}'};</script>
+<script src="markdeep.min.js" charset="utf-8"></script>
+<script src="https://casual-effects.com/markdeep/latest/markdeep.min.js" charset="utf-8"></script>
+<script>window.alreadyProcessedMarkdeep||(document.body.style.visibility="visible")</script>
+endsnippet
+
+snippet markdeeptemplate 
+<link rel="stylesheet" href="https://casual-effects.com/markdeep/latest/${1:journal}.css?">
+endsnippet
+
 ###########################
 # Sections and Paragraphs #
 ###########################
