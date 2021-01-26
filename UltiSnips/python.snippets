@@ -25,6 +25,30 @@ if __name__ == `!p snip.rv = get_quoting_style(snip)`__main__`!p snip.rv = get_q
 	${1:${VISUAL:main()}}
 endsnippet
 
+snippet mpiscatter "scatter for mpi4py" b
+world = MPI.COMM_WORLD
+world_size = world.Get_size()
+world_rank = world.Get_rank()
+
+if world_rank==0:
+	${1:${VISUAL:data_list}} = ${2:${VISUAL:generate_data()}}
+
+	chunk_size = int(math.ceil(len(${1:data_list})/float(world_size)))
+	nb_paddings = chunk_size*world_size - len(${1:data_list})
+	floor_length = len(${1:data_list})-world_size+nb_paddings
+
+	${3:${VISUAL:data}} = np.asarray(${1:data_list}[:floor_length])
+	${3:data} = np.reshape(${3:data}, (world_size, -1))
+	${3:data} = np.concatenate([
+				${3:data}},
+				np.asarray(${1:data_list}[floor_length:] + [None for _ in range(nb_paddings)])[:, None]
+			], axis=1)
+else:
+	${3:data} = None
+${3:data} = world.scatter(${3:data}, root=0)
+print(world_rank, len(${3:data}))
+endsnippet
+
 #snippet with "with" b
 #with ${1:expr}`!p snip.rv = " as " if t[2] else ""`${2:var}:
 	#${3:${VISUAL:pass}}
