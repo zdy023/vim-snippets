@@ -49,6 +49,28 @@ $3 = world.scatter($3, root=0)
 print(world_rank, len($3))
 endsnippet
 
+snippet logger "python built-in logger" b
+logger = logging.getLogger()
+logger.setLevel(logging.DEBUG)
+
+file_handler = logging.FileHandler(os.path.join(${1:${VISUAL:log_dir}}, "normal.log"))
+debug_handler = logging.FileHandler(os.path.join($1, "debug.log"))
+stdout_handler = logging.StreamHandler(sys.stdout)
+
+file_handler.setLevel(logging.INFO)
+debug_handler.setLevel(logging.DEBUG)
+stdout_handler.setLevel(logging.INFO)
+
+formatter = logging.Formatter(fmt="\x1b[1;33m[%(asctime)s \x1b[31m%(levelname)s \x1b[32m%(module)s/%(lineno)d-%(processName)s\x1b[1;33m] \x1b[0m%(message)s")
+file_handler.setFormatter(formatter)
+debug_handler.setFormatter(formatter)
+stdout_handler.setFormatter(formatter)
+
+logger.addHandler(file_handler)
+logger.addHandler(debug_handler)
+logger.addHandler(stdout_handler)
+endsnippet
+
 #snippet with "with" b
 #with ${1:expr}`!p snip.rv = " as " if t[2] else ""`${2:var}:
 	#${3:${VISUAL:pass}}
